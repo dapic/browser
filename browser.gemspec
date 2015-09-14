@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rails"
   s.add_development_dependency "rack-test"
   s.add_development_dependency "minitest"
-  s.add_development_dependency "minitest-utils"
+  s.add_development_dependency "minitest-utils", ">= 0.2.5"
   s.add_development_dependency "pry-meta"
+  s.add_development_dependency "minitest-autotest"
 end
