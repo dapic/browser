@@ -52,6 +52,7 @@ class Browser
     blackberry_running_safari: "Safari",
     blackberry: "BlackBerry",
     core_media: "Apple CoreMedia",
+    wechat: 'MicroMessenger', # Must come before ipad/iphone
     ipad: "iPad",             # Must come before safari
     iphone: "iPhone",         # Must come before safari
     ipod: "iPod Touch",       # Must come before safari
@@ -70,6 +71,7 @@ class Browser
 
   VERSIONS = {
     edge: %r[Edge/([\d.]+)],
+    wechat: %r[MicroMessenger/([\d.]+)],
     chrome: %r[(?:Chrome|CriOS)/([\d.]+)],
     default: %r[(?:Version|MSIE|Firefox|QuickTime|BlackBerry[^/]+|CoreMedia v|PhantomJS|AdobeAIR)[/ ]?([a-z0-9.]+)]i,
     opera: %r[(?:Opera/.*? Version/([\d.]+)|Chrome/.*?OPR/([\d.]+))],
@@ -171,7 +173,7 @@ class Browser
 
   # Detect if browser is Safari.
   def safari?
-    (ua =~ /Safari/ || safari_webapp_mode?) && ua !~ /Android|Chrome|CriOS|PhantomJS/
+    (ua =~ /Safari/ || safari_webapp_mode?) && ua !~ /Android|Chrome|CriOS|PhantomJS|MicroMessenger/
   end
 
   def safari_webapp_mode?
@@ -185,7 +187,7 @@ class Browser
 
   # Detect if browser is Chrome.
   def chrome?
-    ua =~ /Chrome|CriOS/ && !opera? && !edge?
+    ua =~ /Chrome|CriOS/ && !opera? && !edge? && !wechat?
   end
 
   # Detect if browser is Opera.
@@ -201,6 +203,10 @@ class Browser
   # Detect if browser is Yandex.
   def yandex?
     !!(ua =~ /YaBrowser/)
+  end
+
+  def wechat?
+    !!(ua =~ /MicroMessenger/)
   end
 
   def known?
